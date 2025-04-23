@@ -4,7 +4,7 @@
 ### Input ###
 #############
 
-system = "window"  # "mac", "window"
+system = "window"  # "mac",  "window"
 
 # 가능한 시간 입력 (시간,분 형식)
 available_hours, available_minutes_part = 6, 0  
