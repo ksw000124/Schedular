@@ -42,7 +42,9 @@ class TaskManager:
     def _load_tasks(self):
         """JSON 파일에서 작업 목록 로드"""
         try:
-            with open(os.path.join(os.path.dirname(__file__), 'tasks.json'), 'r', encoding='utf-8') as f:
+            config_path = os.path.join(os.path.dirname(
+                __file__), 'config', 'tasks.json')
+            with open(config_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 if isinstance(data, dict):
                     # 총 시간 로드
@@ -65,7 +67,9 @@ class TaskManager:
             'total_minutes': self.available_minutes,
             'tasks': [task.to_dict() for task in self.tasks]
         }
-        with open(os.path.join(os.path.dirname(__file__), 'tasks.json'), 'w', encoding='utf-8') as f:
+        config_path = os.path.join(os.path.dirname(
+            __file__), 'config', 'tasks.json')
+        with open(config_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
     def _create_color_map(self):
@@ -91,9 +95,9 @@ class TaskManager:
             colors[task.name] = pastel_colors[i % len(pastel_colors)]
         return colors
 
-    def add_task(self, name, urgency=3, importance=3):
+    def add_task(self, task_data):
         """새로운 작업 추가"""
-        task = Task(name=name, urgency=urgency, importance=importance)
+        task = Task.from_dict(task_data)
         self.tasks.append(task)
         self._save_tasks()
         self.color_map = self._create_color_map()

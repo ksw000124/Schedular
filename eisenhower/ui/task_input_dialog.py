@@ -139,3 +139,11 @@ class TaskInputDialog(QDialog):
             delta = event.globalPos() - self.old_pos
             self.move(self.pos() + delta)
             self.old_pos = event.globalPos()
+
+    def get_task_data(self):
+        """입력된 할 일 데이터를 반환합니다."""
+        return {
+            "할 일": self.input_field.text(),
+            "긴급도": 3,  # 기본값
+            "중요도": 3  # 기본값
+        }
