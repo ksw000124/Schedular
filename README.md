@@ -1,10 +1,12 @@
-안녕하세요 여러분.
-집중이 너무 안되어, 계산화학 연구실 학생(들)이 만들어본 시간관리 코드입니다.
+안녕하세요 여러분
 
+집중이 너무 안되어 계산화학 연구실 학생(들)이 만들어본 시간관리 코드입니다.
+
+\
 사용법은 아주 간단합니다.
 
 1. 터미널을 엽니다.
-2. 파일을 다운 받습니다. `Download Zip` or `Open with github desktop`
+2. 파일을 다운 받습니다. `Download Zip` or `Open with Github Desktop`
 3. 터미널에 PyQt5를 다운 받습니다. `pip install PyQt5`
 4. 파이썬으로 run_eisenhower를 실행시킵니다. `python run_eisenhower.py`
 
