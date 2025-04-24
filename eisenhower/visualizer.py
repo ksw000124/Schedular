@@ -206,40 +206,22 @@ class EisenhowerVisualizer:
         if point is not None:
             self.selected_point = point
             self.is_dragging = True
-            point.highlight(True)
 
-            # 선택된 점을 제외한 배경 저장
+            # 선택된 점을 임시로 숨기고 배경 저장
             if self.selected_point.scatter is not None:
-                self.selected_point.scatter.remove()
+                self.selected_point.scatter.set_visible(False)
             if self.selected_point.text is not None:
-                self.selected_point.text.remove()
+                self.selected_point.text.set_visible(False)
 
             self.fig.canvas.draw()
             self.background = self.fig.canvas.copy_from_bbox(
                 self.matrix.ax.bbox)
 
-            # 선택된 점 다시 추가
-            self.selected_point.scatter = self.matrix.ax.scatter(
-                event.xdata,
-                event.ydata,
-                s=self.selected_point.task.assigned_time * 10,
-                color=self.selected_point.color,
-                alpha=1.0,
-                edgecolors='black',
-                linewidths=1
-            )
-            hours = self.selected_point.task.assigned_time // 60
-            minutes = self.selected_point.task.assigned_time % 60
-            self.selected_point.text = self.matrix.ax.text(
-                event.xdata,
-                event.ydata + 0.2,
-                f'{self.selected_point.task.name}\n{hours}시간 {minutes}분',
-                fontsize=self.base_font_size * self.font_mult,
-                ha='center'
-            )
-
-            # 변경된 영역만 업데이트
-            self.fig.canvas.blit(self.matrix.ax.bbox)
+            # 선택된 점 다시 보이게 설정
+            if self.selected_point.scatter is not None:
+                self.selected_point.scatter.set_visible(True)
+            if self.selected_point.text is not None:
+                self.selected_point.text.set_visible(True)
 
     def on_motion(self, event):
         if not self.is_dragging or self.selected_point is None or event.inaxes != self.matrix.ax:
@@ -294,7 +276,6 @@ class EisenhowerVisualizer:
                     y_val
                 )
 
-            self.selected_point.highlight(False)
             self._update_plots(self.task_manager.available_minutes)
 
             # 배경 업데이트

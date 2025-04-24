@@ -44,6 +44,10 @@ class PieChart:
             self._set_title(available_hours, available_minutes_part)
             return
 
+        # 긴급도와 중요도에 따라 정렬 (긴급하고 중요한 순서대로)
+        visible_tasks.sort(key=lambda x: (
+            x[0].urgency, x[0].importance), reverse=True)
+
         # 파이 차트 데이터 준비
         times = [task.assigned_time for task, _ in visible_tasks]
         colors = [color for _, color in visible_tasks]
@@ -51,13 +55,14 @@ class PieChart:
         # 총 시간 계산 (분 단위)
         self.total_minutes = sum(times)
 
-        # 파이 차트 그리기
+        # 파이 차트 그리기 (시계 방향으로)
         wedges, _ = self.ax.pie(
             times,
             labels=None,
             colors=colors,
             startangle=90,
-            radius=1.2
+            radius=1.2,
+            counterclock=False  # 시계 방향으로 그리기
         )
 
         # 타이머 점 추가 (이미 존재하면 재사용)
