@@ -72,9 +72,7 @@ class Matrix:
                 s=point.task.assigned_time * 10,
                 color=point.color,
                 picker=10,
-                alpha=1.0,
-                edgecolors='black',
-                linewidths=1
+                alpha=1.0
             )
             point.set_scatter(scatter)
 
