@@ -9,7 +9,8 @@
 4. `python run_eisenhower.py`
 
 이용법 
-<img width="851" alt="image" src="https://github.com/user-attachments/assets/1f8c9bc2-268c-4e71-94ed-eef628d879b8" />
+<img width="823" alt="image" src="https://github.com/user-attachments/assets/8043cd64-5b9c-478b-9a5c-1bc974e074de" />
+
 * 할 일 추가 : 할 일 추가 버튼 클릭
 * 총 시간 : 시간 슬라이드 움직이기 & 오른쪽 아래 빈칸에 직접 입력하기
 * 프로젝트 시간 변경 : 점 가지고 움직이기
