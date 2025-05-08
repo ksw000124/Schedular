@@ -240,18 +240,39 @@ class EisenhowerVisualizer:
         # 배경 복원
         self.fig.canvas.restore_region(self.background)
 
+
+
         # 점 위치 업데이트
         self.selected_point.scatter.set_offsets([[x_val, y_val]])
         if self.selected_point.text is not None:
             self.selected_point.text.set_position((x_val, y_val + 0.2))
 
+
+
+        # 축 근처로 가면 해당 점만 숨기기
+        if x_val <= 0.5 or y_val <= 0.5:
+            if self.selected_point is not None:
+            # 선택된 점에 해당하는 작업도 삭제
+                task_name = self.selected_point.task.name
+                self.task_manager.remove_task(task_name)
+
+            # 포인터 초기화
+            self.selected_point = None
+            self.is_dragging = False
+
+            # 플롯 업데이트
+            self._update_plots(self.task_manager.available_minutes)
+
         # 변경된 점만 다시 그리기
         self.matrix.ax.draw_artist(self.selected_point.scatter)
         if self.selected_point.text is not None:
-            self.matrix.ax.draw_artist(self.selected_point.text)
+            self.matrix.ax.draw_artist(self.selected_point.text)            
 
         # 변경된 영역만 업데이트
         self.fig.canvas.blit(self.matrix.ax.bbox)
+
+
+
 
     def on_release(self, event):
         if self.selected_point is not None:
